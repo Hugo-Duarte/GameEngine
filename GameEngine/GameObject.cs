@@ -9,7 +9,7 @@ namespace GameEngine
     {
         protected Texture2D image;
         public Vector2 position;
-        public Color drawColor;
+        public Color drawColor = Color.White;
         public float scale = 1f, rotation = 0f;
         public float layerDepth = .5f;
         public bool active = true;
@@ -38,7 +38,8 @@ namespace GameEngine
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-
+            if(image != null && active == true)
+                spriteBatch.Draw(image, position, null, drawColor, rotation, Vector2.Zero, scale, SpriteEffects.None, layerDepth);
         }
 
         private void CalculateCenter()

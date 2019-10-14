@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Collections.Generic;
 
 namespace GameEngine
 {
@@ -12,8 +13,8 @@ namespace GameEngine
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        Texture2D image;
-        Vector2 position;
+        List<GameObject> gameObjects = new List<GameObject>();
+
 
         public Game1()
         {
@@ -38,7 +39,6 @@ namespace GameEngine
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            position = new Vector2(640, 360);
 
             base.Initialize();
         }
@@ -53,7 +53,7 @@ namespace GameEngine
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
-            image = Content.Load<Texture2D>("sprite");
+            LoadLevel();
         }
 
         /// <summary>
@@ -72,23 +72,11 @@ namespace GameEngine
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            Input.Update();
-
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
-
-            if (Input.IsKeyDown(Keys.D) == true)
-                position.X += 5;
-            else if (Input.IsKeyDown(Keys.A) == true)
-                position.X -= 5;
-
-            if (Input.IsKeyDown(Keys.S) == true)
-                position.Y += 5;
-            else if (Input.IsKeyDown(Keys.W) == true)
-                position.Y -= 5;
-
 
             // TODO: Add your update logic here
+
+            Input.Update();
+            UpdateObjects();
 
             base.Update(gameTime);
         }
@@ -103,11 +91,42 @@ namespace GameEngine
 
             // TODO: Add your drawing code here
 
-            spriteBatch.Begin();
-            spriteBatch.Draw(image, position, Color.White);
+            spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
+            DrawObjects();
             spriteBatch.End();
 
             base.Draw(gameTime);
+        }
+
+        public void LoadLevel()
+        {
+            gameObjects.Add(new Player(new Vector2(640, 360)));
+            LoadObjects();
+        }
+
+        public void LoadObjects()
+        {
+            foreach (GameObject gameObject in gameObjects)
+            {
+                gameObject.Initialize();
+                gameObject.Load(Content);
+            }
+        }
+
+        public void UpdateObjects()
+        {
+            foreach (GameObject gameObject in gameObjects)
+            {
+                gameObject.Update(gameObjects);
+            }
+        }
+
+        public void DrawObjects()
+        {
+            foreach (GameObject gameObject in gameObjects)
+            {
+                gameObject.Draw(spriteBatch);
+            }
         }
     }
 }
