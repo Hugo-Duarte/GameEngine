@@ -14,6 +14,7 @@ namespace GameEngine
         SpriteBatch spriteBatch;
 
         List<GameObject> gameObjects = new List<GameObject>();
+        public Map map = new Map();
 
 
         public Game1()
@@ -51,6 +52,7 @@ namespace GameEngine
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            map.Load(Content);
 
             // TODO: use this.Content to load your game content here
             LoadLevel();
@@ -93,6 +95,7 @@ namespace GameEngine
 
             spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
             DrawObjects();
+            map.DrawWalls(spriteBatch);
             spriteBatch.End();
 
             base.Draw(gameTime);
@@ -101,6 +104,11 @@ namespace GameEngine
         public void LoadLevel()
         {
             gameObjects.Add(new Player(new Vector2(640, 360)));
+
+            //Add walls:
+            map.walls.Add(new Wall(new Rectangle(256, 256, 256, 256)));
+            map.walls.Add(new Wall(new Rectangle(0, 650, 1280, 128)));
+
             LoadObjects();
         }
 
