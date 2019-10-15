@@ -15,6 +15,20 @@ namespace GameEngine
         public bool active = true;
         protected Vector2 center;
 
+        public bool collidable = true;
+        protected int boundingBoxWidth, boundingBoxHeight;
+        protected Vector2 boundingBoxOffset;
+        Texture2D boundingBoxImage;
+        const bool drawBoundingBoxes = true;
+
+        public Rectangle BoundingBox {
+
+            get
+            {
+                return new Rectangle((int)(position.X + boundingBoxOffset.X), (int)(position.Y + boundingBoxOffset.Y), boundingBoxWidth, boundingBoxHeight);
+            }
+        }
+
         public GameObject()
         {
 
@@ -27,7 +41,15 @@ namespace GameEngine
 
         public virtual void Load(ContentManager content)
         {
+            boundingBoxImage = TextureLoader.Load("pixel", content);
+
             CalculateCenter();
+
+            if(image != null)
+            {
+                boundingBoxWidth = image.Width;
+                boundingBoxHeight = image.Height;
+            }
 
         }
 
@@ -38,7 +60,10 @@ namespace GameEngine
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            if(image != null && active == true)
+            if(boundingBoxImage != null && drawBoundingBoxes == true && active == true)
+                spriteBatch.Draw(boundingBoxImage, new Vector2(BoundingBox.X, BoundingBox.Y), BoundingBox, new Color(120, 120, 120, 120), 0f, Vector2.Zero, 1f, SpriteEffects.None, .1f);
+
+            if (image != null && active == true)
                 spriteBatch.Draw(image, position, null, drawColor, rotation, Vector2.Zero, scale, SpriteEffects.None, layerDepth);
         }
 
