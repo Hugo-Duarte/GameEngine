@@ -1,15 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GameEngine
 {
-    public class Player : Character
+    public class Player : FireCharacter
     {
         public Player()
         {
@@ -62,6 +58,9 @@ namespace GameEngine
                 else if (Input.KeyPressed(Keys.W) == true)
                     Jump(map);
             }
+
+            if (Input.KeyPressed(Keys.Space))
+                Fire();
 
         }
 
