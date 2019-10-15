@@ -125,7 +125,7 @@ namespace GameEngine
         {
             foreach (GameObject gameObject in gameObjects)
             {
-                gameObject.Update(gameObjects);
+                gameObject.Update(gameObjects, map);
             }
         }
 

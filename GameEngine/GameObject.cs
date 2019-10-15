@@ -20,6 +20,7 @@ namespace GameEngine
         protected Vector2 boundingBoxOffset;
         Texture2D boundingBoxImage;
         const bool drawBoundingBoxes = true;
+        protected Vector2 direction = new Vector2(1, 0);
 
         public Rectangle BoundingBox {
 
@@ -53,9 +54,14 @@ namespace GameEngine
 
         }
 
-        public virtual void Update(List<GameObject> objects)
+        public virtual void Update(List<GameObject> objects, Map map)
         {
 
+        }
+
+        public virtual bool CheckCollision(Rectangle input)
+        {
+            return BoundingBox.Intersects(input);
         }
 
         public virtual void Draw(SpriteBatch spriteBatch)

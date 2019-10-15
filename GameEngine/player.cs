@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace GameEngine
 {
-    public class Player : GameObject
+    public class Player : Character
     {
         public Player()
         {
@@ -32,23 +32,37 @@ namespace GameEngine
             base.Load(content);
         }
 
-        public override void Update(List<GameObject> objects)
+        public override void Update(List<GameObject> objects, Map map)
         {
-            CheckInput();
-            base.Update(objects);
+            CheckInput(objects, map);
+            base.Update(objects, map);
         }
 
-        private void CheckInput()
+        private void CheckInput(List<GameObject> objects, Map map)
         {
-            if (Input.IsKeyDown(Keys.D) == true)
-                position.X += 5;
-            else if (Input.IsKeyDown(Keys.A) == true)
-                position.X -= 5;
+            if (Character.applyGravity == false)
+            {
+                if (Input.IsKeyDown(Keys.D) == true)
+                    MoveRight();
+                else if (Input.IsKeyDown(Keys.A) == true)
+                    MoveLeft();
 
-            if (Input.IsKeyDown(Keys.S) == true)
-                position.Y += 5;
-            else if (Input.IsKeyDown(Keys.W) == true)
-                position.Y -= 5;
+                if (Input.IsKeyDown(Keys.S) == true)
+                    MoveDown();
+                else if (Input.IsKeyDown(Keys.W) == true)
+                    MoveUp();
+            }
+            else
+            {
+                if (Input.IsKeyDown(Keys.D) == true)
+                    MoveRight();
+                else if (Input.IsKeyDown(Keys.A) == true)
+                    MoveLeft();
+
+                else if (Input.KeyPressed(Keys.W) == true)
+                    Jump(map);
+            }
+
         }
 
     }
