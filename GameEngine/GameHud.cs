@@ -25,7 +25,7 @@ namespace GameEngine
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Begin();
+            spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Resolution.getTransformationMatrix());
 
             spriteBatch.DrawString(font, "Score: " + Player.score.ToString(), Vector2.Zero, Color.White);
 

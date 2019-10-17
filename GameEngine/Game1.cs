@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 
 namespace GameEngine
@@ -24,13 +23,10 @@ namespace GameEngine
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
 
-            /*
-             * Screen manipulation.
-             */
-            graphics.PreferredBackBufferWidth = 1280;
-            graphics.PreferredBackBufferHeight = 720;
-            //graphics.IsFullScreen = true;
-            graphics.ApplyChanges();
+            Resolution.Init(ref graphics);
+            Resolution.SetVirtualResolution(1280, 720); //Resolution Assets are based in.
+            Resolution.SetResolution(1280, 720, false); //Display Resolution.
+
         }
 
         /// <summary>
@@ -44,6 +40,8 @@ namespace GameEngine
             // TODO: Add your initialization logic here
 
             base.Initialize();
+
+            Camera.Initialize();
         }
 
         /// <summary>
@@ -80,10 +78,10 @@ namespace GameEngine
         {
 
             // TODO: Add your update logic here
-
             Input.Update();
             UpdateObjects();
             map.Update(gameObjects);
+            UpdateCamera();
 
             base.Update(gameTime);
         }
@@ -96,9 +94,11 @@ namespace GameEngine
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
+            Resolution.BeginDraw();
+
             // TODO: Add your drawing code here
 
-            spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
+            spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Camera.GetTransformMatrix());
             DrawObjects();
             map.DrawWalls(spriteBatch);
             spriteBatch.End();
@@ -153,6 +153,14 @@ namespace GameEngine
             {
                 decor.Draw(spriteBatch);
             }
+        }
+
+        private void UpdateCamera()
+        {
+            if (gameObjects.Count == 0)
+                return;
+
+            Camera.Update(gameObjects[0].position);
         }
     }
 }
