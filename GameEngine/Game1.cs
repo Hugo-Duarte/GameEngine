@@ -104,6 +104,7 @@ namespace GameEngine
         public void LoadLevel()
         {
             gameObjects.Add(new Player(new Vector2(640, 360)));
+            gameObjects.Add(new Enemy(new Vector2(300, 522)));
 
             //Add walls:
             map.walls.Add(new Wall(new Rectangle(256, 256, 256, 256)));
