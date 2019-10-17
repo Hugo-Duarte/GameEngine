@@ -79,6 +79,7 @@ namespace GameEngine
 
             Input.Update();
             UpdateObjects();
+            map.Update(gameObjects);
 
             base.Update(gameTime);
         }
@@ -110,6 +111,11 @@ namespace GameEngine
             map.walls.Add(new Wall(new Rectangle(256, 256, 256, 256)));
             map.walls.Add(new Wall(new Rectangle(0, 650, 1280, 128)));
 
+            //Add decor:
+            map.decors.Add(new Decor(Vector2.Zero, "background", 1f));
+
+            map.LoadMap(Content);
+
             LoadObjects();
         }
 
@@ -135,6 +141,11 @@ namespace GameEngine
             foreach (GameObject gameObject in gameObjects)
             {
                 gameObject.Draw(spriteBatch);
+            }
+
+            foreach (Decor decor in map.decors)
+            {
+                decor.Draw(spriteBatch);
             }
         }
     }
