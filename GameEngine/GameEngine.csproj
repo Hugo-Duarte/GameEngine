@@ -41,6 +41,9 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="AnimatedObject.cs" />
+    <Compile Include="Animations\Animation.cs" />
+    <Compile Include="Animations\AnimationLoader.cs" />
     <Compile Include="Bullet.cs" />
     <Compile Include="Character.cs" />
     <Compile Include="Enemy.cs" />
@@ -105,6 +108,9 @@
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />
     <None Include="app.manifest" />
+    <None Include="Content\Animations\ShyBoy.anm">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Content\Fonts\Arial.spritefont" />
   </ItemGroup>
   <ItemGroup />
