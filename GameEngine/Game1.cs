@@ -16,6 +16,8 @@ namespace GameEngine
         List<GameObject> gameObjects = new List<GameObject>();
         public Map map = new Map();
 
+        GameHUD gameHUD = new GameHUD();
+
 
         public Game1()
         {
@@ -53,6 +55,8 @@ namespace GameEngine
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             map.Load(Content);
+
+            gameHUD.Load(Content);
 
             // TODO: use this.Content to load your game content here
             LoadLevel();
@@ -98,6 +102,8 @@ namespace GameEngine
             DrawObjects();
             map.DrawWalls(spriteBatch);
             spriteBatch.End();
+
+            gameHUD.Draw(spriteBatch);
 
             base.Draw(gameTime);
         }

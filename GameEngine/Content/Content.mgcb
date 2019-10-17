@@ -85,6 +85,13 @@
 /processorParam:TextureFormat=Color
 /build:enemy.png
 
+#begin Fonts/Arial.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Fonts/Arial.spritefont
+
 #begin orbsheet.png
 /importer:TextureImporter
 /processor:TextureProcessor

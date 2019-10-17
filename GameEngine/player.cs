@@ -7,6 +7,8 @@ namespace GameEngine
 {
     public class Player : FireCharacter
     {
+        public static int score;
+
         public Player()
         {
 
@@ -19,6 +21,7 @@ namespace GameEngine
 
         public override void Initialize()
         {
+            score = 0;
             base.Initialize();
         }
 
