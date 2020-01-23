@@ -1,2 +1,2 @@
 # GameEngine
-Game Engine - Using the Monogame framework (WIP) 
+Game Engine - Using the Monogame framework (Work In Progress) 
